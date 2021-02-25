@@ -12,12 +12,12 @@ def main(infile):
 	print(f"start {infile}")
 
 	class Street:
-		def __init__(self, index, begin, end, name, length):
+		def __init__(self, index, begin, end, name, time):
 			self.index = index
 			self.begin = begin
 			self.end = end
 			self.name = name
-			self.length = length
+			self.time = time
 
 		def __repr__(self):
 			return self.__str__()
@@ -26,9 +26,10 @@ def main(infile):
 
 
 	class Car:
-		def __init__(self, index, path):
+		def __init__(self, index, path, timeRemaining):
 			self.index = index
 			self.path = path
+			self.timeRemaining = timeRemaining
 
 		def __repr__(self):
 			return self.__str__()
@@ -86,10 +87,14 @@ def main(infile):
 		for carI in range(numCars):
 			carInfo = inf.readline().rstrip("\n").split(" ")
 			path = []
+			timeRemaining = maxTime
 			for i in range(1, len(carInfo)):
-				path.append(streetDict[carInfo[i]])
-			car = Car(carI, path)
-			allCars.append(car)
+				street = streetDict[carInfo[i]]
+				path.append(street)
+				timeRemaining -= street.time
+			if timeRemaining >= 0:
+				car = Car(carI, path, timeRemaining)
+				allCars.append(car)
 
 
 
