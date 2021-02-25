@@ -91,8 +91,20 @@ def main(infile):
 			car = Car(carI, path)
 			allCars.append(car)
 
-		
-	print(allInters)
+
+
+	
+	with open("out" + infile, "w") as txt_file:
+		outInt = tuple(filter(lambda i: len(i.schedule) > 0, allInters))
+		txt_file.write(str(len(outInt)))
+		for inter in outInt:
+			txt_file.write(f"\n{inter.index}")
+			txt_file.write(f"\n{len(inter.schedule)}")
+			for step in inter.schedule:
+				txt_file.write(f"\n{allStreets[step[0]].name} {step[1]}")
+
+
+	print(f"done {infile}")
 
 
 
