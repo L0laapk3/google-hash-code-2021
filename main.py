@@ -128,7 +128,7 @@ def main(infile):
 		
 		CYCLETIME = math.ceil(maxTime / 10) + 1
 		for s in inter.ins:
-			onTime = math.ceil(len(s.cars) * CYCLETIME / inter.totalCars)
+			onTime = min(math.ceil(len(s.cars) * CYCLETIME / inter.totalCars), maxTime)
 			if onTime > 0:
 				inter.schedule.append((s.index, onTime))
 
