@@ -34,7 +34,7 @@ def main(infile):
 		def __repr__(self):
 			return self.__str__()
 		def __str__(self):
-			return str(self.index) + str(self.path).replace('[', '{').replace(']', '}')
+			return str(self.index) + ':' + str(self.timeRemaining) + ':' + str(self.path).replace('[', '{').replace(']', '}')
 
 	
 	class Inter:
@@ -58,11 +58,11 @@ def main(infile):
 		infoLine = inf.readline().rstrip("\n")
 		info = infoLine.split(" ")
 
-		simTime = int(info[0])
+		maxTime = int(info[0])
 		numInters = int(info[1])
 		numStreets = int(info[2])
 		numCars = int(info[3])
-		maxTime = int(info[4])
+		bonusScore = int(info[4])
 
 
 		allInters = []
@@ -91,10 +91,30 @@ def main(infile):
 			for i in range(1, len(carInfo)):
 				street = streetDict[carInfo[i]]
 				path.append(street)
+
+			for streetI in range(1, len(path)):
+				street = path[streetI]
 				timeRemaining -= street.time
-			if timeRemaining >= 0:
-				car = Car(carI, path, timeRemaining)
-				allCars.append(car)
+				
+			car = Car(carI, path, timeRemaining)
+			allCars.append(car)
+
+
+
+
+
+
+
+
+
+	print(allCars)
+
+
+
+
+
+
+
 
 
 
