@@ -11,51 +11,6 @@ def main(infile):
 
 	print(f"start {infile}")
 
-	# class Book:
-	# 	def __init__(self, index, score):
-	# 		self.index = index
-	# 		self.score = score
-	# 		self.rarity = 1
-
-
-
-	# 	def __repr__(self):
-	# 		return self.__str__()
-	# 	def __str__(self):
-	# 		stuff = dict(vars(self))
-	# 		for k in stuff:
-	# 			if isinstance(stuff[k], float):
-	# 				stuff[k] = round(stuff[k], 2)
-	# 		return str(stuff)
-
-
-
-	# class Lib:
-	# 	def __init__(self, index, signupDays, troughput, books):
-	# 		self.originalIndex = index
-	# 		self.index = index
-	# 		self.signupDays = signupDays
-	# 		self.troughput = troughput
-
-	# 		self.books = books
-	# 		self.booksMemory = tuple(books)
-	# 		# self.booksByIndex = dict()
-	# 		# for bookI, book in enumerate(books):
-	# 		# 	self.booksByIndex[book.index] = bookI
-			
-
-			
-	# 	def __repr__(self):
-	# 		return self.__str__()
-	# 	def __str__(self):
-	# 		stuff = dict(vars(self))
-	# 		if not PRINTBOOKS:
-	# 			stuff["books"] = f"len({len(stuff['books'])}"
-	# 		for k in stuff:
-	# 			if isinstance(stuff[k], float):
-	# 				stuff[k] = round(stuff[k], 2)
-	# 		return str(stuff)
-
 	class Street:
 		def __init__(self, index, start, end, name, length):
 			self.index = index
@@ -67,7 +22,7 @@ def main(infile):
 		def __repr__(self):
 			return self.__str__()
 		def __str__(self):
-			return str(self.index) + " " + self.name
+			return str(self.index)
 
 	class Car:
 		def __init__(self, index, path):
@@ -77,7 +32,7 @@ def main(infile):
 		def __repr__(self):
 			return self.__str__()
 		def __str__(self):
-			return str(self.index)
+			return str(self.index) + str(self.path).replace('[', '{').replace(']', '}')
 			
 
 
