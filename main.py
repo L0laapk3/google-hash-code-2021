@@ -61,7 +61,7 @@ def main(infile):
 		numInters = int(info[1])
 		numStreets = int(info[2])
 		numCars = int(info[3])
-		scorePerCarOnTime = int(info[4])
+		maxTime = int(info[4])
 
 
 		allInters = []
