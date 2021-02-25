@@ -12,9 +12,9 @@ def main(infile):
 	print(f"start {infile}")
 
 	class Street:
-		def __init__(self, index, start, end, name, length):
+		def __init__(self, index, begin, end, name, length):
 			self.index = index
-			self.start = start
+			self.begin = begin
 			self.end = end
 			self.name = name
 			self.length = length
@@ -23,6 +23,7 @@ def main(infile):
 			return self.__str__()
 		def __str__(self):
 			return str(self.index)
+
 
 	class Car:
 		def __init__(self, index, path):
@@ -33,6 +34,19 @@ def main(infile):
 			return self.__str__()
 		def __str__(self):
 			return str(self.index) + str(self.path).replace('[', '{').replace(']', '}')
+
+	
+	class Inter:
+		def __init__(self, index):
+			self.index = index
+			self.ins = []
+			self.outs = []
+			self.schedule = []
+			
+		def __repr__(self):
+			return self.__str__()
+		def __str__(self):
+			return str(self.index) + str(self.schedule).replace('[', '{').replace(']', '}')
 			
 
 
@@ -50,26 +64,35 @@ def main(infile):
 		scorePerCarOnTime = int(info[4])
 
 
-		streets = []
+		allInters = []
+		for interI in range(numInters):
+			inter = Inter(interI)
+			allInters.append(inter)
+
+
+		allStreets = []
 		streetDict = {}
 		for streetI in range(numStreets):
 			streetInfo = inf.readline().rstrip("\n").split(" ")
 			street = Street(streetI, int(streetInfo[0]), int(streetInfo[1]), streetInfo[2], int(streetInfo[3]))
-			streets.append(street)
+			allStreets.append(street)
 			streetDict[street.name] = street
+			
+			allInters[street.begin].outs.append(street)
+			allInters[street.end].ins.append(street)
 
-		cars = []
+
+		allCars = []
 		for carI in range(numCars):
 			carInfo = inf.readline().rstrip("\n").split(" ")
 			path = []
 			for i in range(1, len(carInfo)):
 				path.append(streetDict[carInfo[i]])
-			print(path)
 			car = Car(carI, path)
-			cars.append(car)
+			allCars.append(car)
 
 		
-	print(streets, cars)
+	print(allInters)
 
 
 
