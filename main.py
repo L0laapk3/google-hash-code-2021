@@ -126,11 +126,16 @@ def main(infile):
 		for s in inter.ins:
 			inter.totalCars += len(street.cars)
 		
-		CYCLETIME = math.ceil(maxTime / 10) + 1
+		CYCLETIME = 3
 		for s in inter.ins:
 			onTime = min(math.ceil(len(s.cars) * CYCLETIME / inter.totalCars), maxTime)
 			if onTime > 0:
 				inter.schedule.append((s.index, onTime))
+
+
+
+	
+
 
 
 
