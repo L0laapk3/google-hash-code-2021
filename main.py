@@ -5,7 +5,7 @@ import math
 
 
 
-PRINTBOOKS = True
+
 
 def main(infile):
 
@@ -18,6 +18,8 @@ def main(infile):
 			self.end = end
 			self.name = name
 			self.time = time
+			self.startCars = []
+			self.cars = []
 
 		def __repr__(self):
 			return self.__str__()
@@ -26,10 +28,11 @@ def main(infile):
 
 
 	class Car:
-		def __init__(self, index, path, timeRemaining):
+		def __init__(self, index, path, timeRemaining, startDelay):
 			self.index = index
 			self.path = path
 			self.timeRemaining = timeRemaining
+			self.startDelay = startDelay
 
 		def __repr__(self):
 			return self.__str__()
@@ -87,16 +90,20 @@ def main(infile):
 		for carI in range(numCars):
 			carInfo = inf.readline().rstrip("\n").split(" ")
 			path = []
-			timeRemaining = maxTime
+			
 			for i in range(1, len(carInfo)):
 				street = streetDict[carInfo[i]]
 				path.append(street)
+				
+			startDelay = len(path[0].startCars)
+			timeRemaining = maxTime - startDelay
 
 			for streetI in range(1, len(path)):
 				street = path[streetI]
 				timeRemaining -= street.time
 				
-			car = Car(carI, path, timeRemaining)
+			car = Car(carI, path, timeRemaining, startDelay)
+			path[0].startCars.append(car)
 			allCars.append(car)
 
 
@@ -104,16 +111,26 @@ def main(infile):
 
 
 
+	for car in allCars:
+		currTime = car.startDelay
+		for street in car.path:
+			currTime += street.time
+		
+
+			street.cars.append((currTime, car))
 
 
-
-	print(allCars)
-
-
-
-
-
-
+	for inter in allInters:
+		inter.ins = sorted(inter.ins, key=lambda s: -len(s.startCars))
+		inter.totalCars = 0
+		for s in inter.ins:
+			inter.totalCars += len(street.cars)
+		
+		CYCLETIME = math.ceil(maxTime / 10) + 1
+		for s in inter.ins:
+			onTime = math.ceil(len(s.cars) * CYCLETIME / inter.totalCars)
+			if onTime > 0:
+				inter.schedule.append((s.index, onTime))
 
 
 
@@ -136,3 +153,8 @@ def main(infile):
 
 if __name__ == "__main__":
 	main("a.txt")
+	main("b.txt")
+	main("c.txt")
+	main("d.txt")
+	main("e.txt")
+	main("f.txt")

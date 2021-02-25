@@ -16,6 +16,8 @@ def main(infile):
 			self.end = end
 			self.name = name
 			self.time = time
+			self.startCars = []
+			self.carsAtEnd = []
 
 		def __repr__(self):
 			return self.__str__()
@@ -85,26 +87,29 @@ def main(infile):
 		for carI in range(numCars):
 			carInfo = inf.readline().rstrip("\n").split(" ")
 			path = []
-			timeRemaining = maxTime
+			
 			for i in range(1, len(carInfo)):
 				street = streetDict[carInfo[i]]
 				path.append(street)
+				
+			timeRemaining = maxTime - len(path[0].startCars)
 
 			for streetI in range(1, len(path)):
 				street = path[streetI]
 				timeRemaining -= street.time
 				
 			car = Car(carI, path, timeRemaining)
+			path[0].startCars.append(car)
 			allCars.append(car)
 
 
 
 
+
 	for inter in allInters:
-		print(inter.ins)
+		inter.ins = sorted(inter.ins, key=lambda s: -len(s.startCars))
 		for s in inter.ins:
 			inter.schedule.append((s.index, 1))
-
 
 
 
